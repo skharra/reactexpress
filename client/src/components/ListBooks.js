@@ -12,7 +12,7 @@ const ListBooks = () => {
 			const deleteBook = await fetch(`http://localhost:5000/books/${id}`, {
 				method: "DELETE"
 			});
-			setBooks(books.filter(book => book.book_id !== id));
+			setBooks(books.filter(book => book.id !== id));
 		} catch (err) {
 			console.error(err.message);
 		}
@@ -50,17 +50,17 @@ const ListBooks = () => {
 				</thead>
 				<tbody>
 					{books.map(book => (
-						<tr key={book.book_id}>
+						<tr key={book.id}>
 							<td>{book.name}</td>
 							<td>{book.author}</td>
-							<td>{book.publish_date}</td>
+							<td>{book.createdAt}</td>
 							<td>
 								<EditBook book={book} />
 							</td>
 							<td>
 								<button
 								className="btn btn-danger"
-								onClick={() => deleteBook(book.book_id)}
+								onClick={() => deleteBook(book.id)}
 								>
 								Delete
 								</button>
