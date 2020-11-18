@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from "react";
-
+import {useDispatch} from "react-redux";
+import { addNewBook } from "../actions/action";
 const AddBook = () => {
+	const dispatch=useDispatch();
 	const [name, setName] = useState("");
 	const [author, setAuthor] = useState("");
 	const [summary, setSummary] = useState("");
@@ -12,12 +14,12 @@ const AddBook = () => {
 			console.log('author',author)
 			console.log('summary',summary)
 			const body = { name,author,summary};
-			const response = await fetch("http://localhost:5000/books", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(body)
-			});
-			console.log(response);
+			// const response = await fetch("http://localhost:5000/books", {
+			// 	method: "POST",
+			// 	headers: { "Content-Type": "application/json" },
+			// 	body: JSON.stringify(body)
+			// });
+			dispatch(addNewBook(body));
 			window.location = "/";
 		} catch (err) {
 			console.error(err.message);

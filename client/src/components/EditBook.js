@@ -1,6 +1,9 @@
 import React, { Fragment, useState } from "react";
+import { editOldBook } from "../actions/action";
+import { useDispatch } from "react-redux";
 
 const EditBook = ({ book }) => {
+	const dispatch = useDispatch();
 	const [name, setName] = useState(book.name);
 	const [author, setAuthor] = useState(book.author);
 	const [summary, setSummary] = useState(book.summary);
@@ -11,12 +14,13 @@ const EditBook = ({ book }) => {
 		e.preventDefault();
 		try {
 			const body = { name,author,summary };
-			const response = await fetch(`http://localhost:5000/books/${book.book_id}`,
-				{
-					method: "PUT",
-					headers: {"content-type": "application/json"},
-					body: JSON.stringify(body)
-				});
+			// const response = await fetch(`http://localhost:5000/books/${book.id}`,
+			// 	{
+			// 		method: "PUT",
+			// 		headers: {"content-type": "application/json"},
+			// 		body: JSON.stringify(body)
+			// 	});
+			dispatch(editOldBook(body));
 			window.location = "/";
 		} catch(err) {
 				console.error(err.message);
@@ -29,12 +33,12 @@ const EditBook = ({ book }) => {
 				type="button"
 				className = "btn btn-warning"
 				data-toggle = "modal"
-				data-target = {`#id${book.book_id}`}
+				data-target = {`#id${book.id}`}
 			> View
 			</button>
 			<div 
 				class="modal" 
-				id={`id${book.book_id}`}
+				id={`id${book.id}`}
 				onClick = {() => setName(book.name)}
 			>
 			  <div class="modal-dialog">
